@@ -1,6 +1,7 @@
 #include "DynamicString.h"
 #include <cctype>
 #include <stdexcept>
+#include <algorithm>
 
 using std::out_of_range;
 using std::tolower;
@@ -169,14 +170,20 @@ DynamicString& DynamicString::replace(char old, char newCh){
    return *this;
 }
 
-int DynamicString::find(char c, int start) const{
-   int length = len();
-   for (int i = start; i < length; i++){
-      if (cstr[i] == c){
-         return i;
-      }
-   }
-   return -1;
+int DynamicString::find(char c, int start) const {
+    int length = len();
+    
+    // Ensure start is within valid range
+    start = std::max(start, 0);
+    start = std::min(start, length);
+
+    const char* result = std::find(cstr + start, cstr + length, c);
+
+    if (result != cstr + length) {
+        return result - cstr;
+    } else {
+        return -1;
+    }
 }
 
 ostream& operator<<(ostream& out, const DynamicString& str){
