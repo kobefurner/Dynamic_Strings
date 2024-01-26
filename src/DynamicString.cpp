@@ -19,9 +19,10 @@ DynamicString::DynamicString(const char* str){
    }
    
    cstr = new char[length + 1];
-   for (int i = 0; i < length; i++){
+   for (int i = 0; i <= length; i++){
       cstr[i] = str[i];
    }
+   cstr[length] = '\0';
 }
 
 DynamicString::DynamicString(const DynamicString& other){
