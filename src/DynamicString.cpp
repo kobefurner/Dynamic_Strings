@@ -70,10 +70,20 @@ const char* DynamicString::c_str() const{
 }
 
 char DynamicString::char_at(int position) const{
+   int length = len();
+
+    if (position < 0 || position >= length) {
+        throw std::out_of_range("Out of range");
+    }
    return cstr[position];
 }
 
 char& DynamicString::operator[](int position){
+   int length = len();
+
+    if (position < 0 || position >= length) {
+        throw std::out_of_range("Out of range");
+    }
    return cstr[position];
 }
 
